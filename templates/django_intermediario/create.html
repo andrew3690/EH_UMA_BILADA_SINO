@@ -1,0 +1,14 @@
+{% extends "index.html" %}
+
+{% block title %} Creation {% endblock %}
+
+{% block content %}
+    <div class = "conteiner">
+        <h3> Novo Endereço</h3>
+        <form action = "{% url 'management:address_create' %}"  method ="post" {% if form_submitted %} class="was-validated" {% endif %}>
+            {% csrf_token %}
+            {% include "django_intermediario/padron.html" %}
+            <button type = "submit" class = "btn btn-primary">Criar</button>
+        </form>
+    </div>
+{% endblock %}

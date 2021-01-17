@@ -1,0 +1,16 @@
+{% extends "index.html" %}
+
+{% block title %} Deletion - {% endblock %}
+
+{% block content %}
+    <div class = "conteiner">
+        <h3> Excluir Endereço</h3>
+        <form action = "{% url 'management:address_destroy' address.id%}" method ="post"}>
+            {% csrf_token %}
+            <fieldset disabled>
+                {% include "django_intermediario/padron.html" %}
+            </fieldset>
+            <button type = "submit" class = "btn btn-primary">Excluir</button>
+        </form>
+    </div>
+{% endblock %}
