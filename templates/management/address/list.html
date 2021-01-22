@@ -1,0 +1,41 @@
+{% extends "index.html" %}
+
+{% block title %} Listagem de Endereços {% endblock %}
+
+{% block content %}
+ <div class = "conteiner">
+    <h3>Listagem de endereços</h3>
+    <a href= "{% url 'management:address_create' %}" class = "btn btn-primary">Novo Endereço</a>
+    <table class = "table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Endereço</th>
+                <th>Complemento</th>
+                <th>Cidade</th>
+                <th>Estado</th>
+                <th>Açoes</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for address in object_list %}
+                <tr>
+                    <td>{{ address.pk }}</td>
+                    <td>
+                        <a href= "{% url 'management:address_detail' address.pk %}">{{ address.address }}</a>
+                    </td>
+                    <td>{{ address.address_complement_normalized }}</td>
+                    <td>{{ address.city }}</td>
+                    <td>{{ address.states }}</td>
+                    <td>
+                    <a href= "/list/{{ address.id }}/update/">Editar</a> |
+                    <a href= "/list/{{ address.id }}/destroy/">Deletar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a class = "btn btn-primary" href ="{%url 'management:home' %}">Voltar</a>
+ </div>
+{% endblock %}

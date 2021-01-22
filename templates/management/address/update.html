@@ -1,0 +1,14 @@
+{% extends "index.html" %}
+
+{% block title %} Update {% endblock %}
+
+{% block content %}
+    <div class = "conteiner">
+        <h3> Editar Endereço</h3>
+        <form action = "{% url 'management:address_update' address.id %}" method ="post" {% if form_submitted %} class="was-validated" {% endif %}>
+            {% csrf_token %}
+            {% include "management/form/padron.html" %}
+            <button type = "submit" class = "btn btn-primary">Atualizar</button>
+        </form>
+    </div>
+{% endblock %}

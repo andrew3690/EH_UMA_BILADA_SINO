@@ -1,0 +1,52 @@
+{% extends "index.html" %}
+
+{% block title %} Detail {% endblock %}
+
+{% block content %}
+    <div class = "conteiner">
+        <h3>
+            Detalhes do Endereço - {{ object.address  }}
+        </h3>
+
+        <table class = "talbe table-bordered">
+            <tbody>
+                <tr>
+                    <th scope = "row">ID</th>
+                    <td>{{ object.pk }}</td>
+                </tr>
+
+                <tr>
+                    <th scope = "row">Address</th>
+                    <td>{{ address.address }}</td>
+                </tr>
+
+                <tr>
+                    <th scope = "row">Complemento</th>
+                    <td>{{ address.address_complement }}</td>
+                </tr>
+
+                <tr>
+                    <th scope = "row">Cidade</th>
+                    <td>{{ object.city }}</td>
+                </tr>
+
+                <tr>
+                    <th scope = "row">Estado</th>
+                    <td>{{ object.states }}</td>
+                </tr>
+
+                <tr>
+                    <th scope = "row">País</th>
+                    <td>{{ object.country }}</td>
+                </tr>
+
+                <tr>
+                    <th scope = "row">Address</th>
+                    <td>{{ object.address }}</td>
+                </tr>
+
+            </tbody>
+        </table>
+        <a href="{%url 'management:address_list' %}">Voltar</a>
+    </div>
+{% endblock %}

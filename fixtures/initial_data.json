@@ -1,0 +1,25 @@
+[
+    {
+        "model":"management.address",
+        "pk": 1,
+        "fields": {
+            "address":"Brand new street",
+            "address_complement": "nothing new",
+            "city": "Rio de Janeiro",
+            "states":"RJ",
+            "country":"Brazil",
+            "user": 1
+        }
+    },
+    {
+        "model":"management.address",
+        "pk": 1,
+        "fields": {
+            "address":"Testing second address",
+            "address_complement": "something new",
+            "city": "Sao Jose",
+            "states":"SC",
+            "country":"Brazil",
+            "user": 1
+        }
+    }
