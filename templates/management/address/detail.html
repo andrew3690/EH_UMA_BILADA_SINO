@@ -5,7 +5,7 @@
 {% block content %}
     <div class = "conteiner">
         <h3>
-            Detalhes dos Funcionarios - {{ object.pk  }}
+            Detalhes dos Funcionarios
         </h3>
 
         <table class = "talbe table-bordered">
@@ -17,12 +17,12 @@
 
                 <tr>
                     <th scope = "row">nome</th>
-                    <td>{{ address.nome }}</td>
+                    <td>{{ object.nome }}</td>
                 </tr>
 
                 <tr>
                     <th scope = "row">Funçao</th>
-                    <td>{{ address.Funçao }}</td>
+                    <td>{{ object.Funçao }}</td>
                 </tr>
             </tbody>
         </table>
