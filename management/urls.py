@@ -15,4 +15,4 @@ urlpatterns  = [
     path('create/',views.AddressCreateView.as_view(),name='address_create'),
     path('list/<int:pk>/update/',views.AddressUpdateView.as_view(),name = 'address_update'),
     path('list/<int:pk>/destroy/',views.AddressDestroyView.as_view(),name = 'address_destroy')
-    '''
+'''

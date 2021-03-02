@@ -5,46 +5,25 @@
 {% block content %}
     <div class = "conteiner">
         <h3>
-            Detalhes do Endereço - {{ object.address  }}
+            Detalhes dos Funcionarios - {{ object.pk  }}
         </h3>
 
         <table class = "talbe table-bordered">
             <tbody>
                 <tr>
-                    <th scope = "row">ID</th>
-                    <td>{{ object.pk }}</td>
+                    <th scope = "row">Matricula</th>
+                    <td>{{ object.matricula }}</td>
                 </tr>
 
                 <tr>
-                    <th scope = "row">Address</th>
-                    <td>{{ address.address }}</td>
+                    <th scope = "row">nome</th>
+                    <td>{{ address.nome }}</td>
                 </tr>
 
                 <tr>
-                    <th scope = "row">Complemento</th>
-                    <td>{{ address.address_complement }}</td>
+                    <th scope = "row">Funçao</th>
+                    <td>{{ address.Funçao }}</td>
                 </tr>
-
-                <tr>
-                    <th scope = "row">Cidade</th>
-                    <td>{{ object.city }}</td>
-                </tr>
-
-                <tr>
-                    <th scope = "row">Estado</th>
-                    <td>{{ object.states }}</td>
-                </tr>
-
-                <tr>
-                    <th scope = "row">País</th>
-                    <td>{{ object.country }}</td>
-                </tr>
-
-                <tr>
-                    <th scope = "row">Address</th>
-                    <td>{{ object.address }}</td>
-                </tr>
-
             </tbody>
         </table>
         <a href="{%url 'management:address_list' %}">Voltar</a>

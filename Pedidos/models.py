@@ -113,22 +113,7 @@ class Entrega(models.Model):
         max_length = 200,
         default="country"
     )
-    
-    user = models.ForeignKey(
-        User,
-        blank = True,
-        null = True,
-        on_delete = models.PROTECT
-    )
 
-    class Meta:
-        verbose_name_plural = "Entregas"
-    
-    def __str__(self):
-        return "%s, %s"%(self.numero,self.status)
-    
-
-class Funcionarios(models.Model):
     matricula = models.CharField(
         max_length= 30,
         default = "000"
@@ -141,11 +126,27 @@ class Funcionarios(models.Model):
 
     Funçao = models.CharField(
         max_length= 50,
+        default = "nenhuma",
         choices = ROLE_TYPES
     )
 
+    user = models.ForeignKey(
+        User,
+        blank = True,
+        null = True,
+        on_delete = models.PROTECT
+    )
+    class Meta:
+        verbose_name_plural = "Entregas"
+    
+
+    def __str__(self):
+        return "%s, %s"%(self.numero,self.status)
+    
+    '''
     class Meta:
         verbose_name_plural = 'Funcionarios' 
-    @property
+    
     def __str__(self):
         return "%s, %s"%(self.matricula,self.nome)
+    '''

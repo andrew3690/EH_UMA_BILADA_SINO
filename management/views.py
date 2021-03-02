@@ -52,9 +52,10 @@ class AddressListView(LoginRequiredMixin,ListView):
     model = Entrega
     template_name = 'management/address/list.html'
     
+    '''
     def get_queryset(self,*args,**kwargs):
         queryset = Entrega.objects.filter(user = self.request.user)
-    
+    '''
 
 '''
 class AddressCreateView(LoginRequiredMixin,FormSubmittedInContextMixin,CreateView):

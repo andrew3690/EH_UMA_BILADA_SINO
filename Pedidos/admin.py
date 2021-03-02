@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Entrega,Funcionarios
+from .models import Entrega
+
 # Register your models here.
 # user : andre
 # password : and010500
@@ -7,6 +8,6 @@ from .models import Entrega,Funcionarios
 # password: zepov123
 
 
-admin.site.register(Funcionarios)
+#admin.site.register(Funcionarios)
 admin.site.register(Entrega)
 
