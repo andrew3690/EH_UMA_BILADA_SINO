@@ -22,5 +22,22 @@
             "country":"Brazil",
             "user": 1
         }
+    },
+    {   "model": "auth.user", 
+        "pk": 1, 
+        "fields": {
+            "password": "pbkdf2_sha256$216000$D6tTT2qKtxh5$Ragii07qf2sFIzlun4uhDE05boqmpruKgPCurvv1TFs=", 
+            "last_login": "2021-01-22T22:15:48.319Z", 
+            "is_superuser": true, 
+            "username": "teste", 
+            "first_name": "", 
+            "last_name": "", 
+            "email": "teste@gmail.com", 
+            "is_staff": true, 
+            "is_active": true, 
+            "date_joined": "2021-01-22T22:15:08.847Z", 
+            "groups": [], 
+            "user_permissions": []
+        }
     }
 ]

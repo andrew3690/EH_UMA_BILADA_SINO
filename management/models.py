@@ -33,15 +33,45 @@ STATES_CHOICES = (
 )
 
 class Address(models.Model):
-    address = models.CharField(max_length = 200,default = "address")
-    address_complement = models.CharField(max_length = 250,blank = True,null = True)
-    city = models.CharField(max_length = 200,default = "city")
-    states = models.CharField(max_length = 200,choices = STATES_CHOICES,default="states")
-    country = models.CharField(max_length = 200,default="country")
-    user = models.ForeignKey(User,on_delete = models.PROTECT)
+    address = models.CharField(
+        max_length = 200,
+        default = "endereço"
+    )
+
+    CEP = models.CharField(
+        max_length= 10,
+        default= "00.000-000"
+    )
+    
+    address_complement = models.CharField(
+        max_length = 250,
+        blank = True,
+        null = True
+    )
+    
+    city = models.CharField(
+        max_length = 200,
+        default = "city"
+    )
+    
+    states = models.CharField(
+        max_length = 200,
+        choices = STATES_CHOICES,
+        default="states"
+    )
+    
+    country = models.CharField(
+        max_length = 200,
+        default="country"
+    )
+    
+    user = models.ForeignKey(
+        User,
+        on_delete = models.PROTECT
+    )
 
     class Meta:
-        verbose_name_plural = 'Adresses'
+        verbose_name_plural = 'Endereços'
     
     @property
     def address_complement_normalaized(self):

@@ -1,0 +1,37 @@
+{% extends 'index.html' %}
+
+{%block title %}Rodizio orders Listing {% endblock %}
+
+{%block content %}
+    <div class = "conteiner">
+        <h4> Listagem de Pedidos do tipo Rodizio</h4>
+        <table class = "table">
+            <thead>
+                <tr>
+                    <th>Prato       </th>
+                    <th>Quantidade  </th>
+                    <th>Extra       </th>
+                    <th>Bebida      </th>
+                    <th>Cliente     </th>
+                    <th>Açoes       </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for orders in object_list %}
+                    <tr>
+                        <td>{{ orders.Pratosplates_name    }}</td>
+                        <td>{{ orders.Pratos.plates_amount  }}</td>
+                        <td>{{ orders.Extra.extras_name     }}</td>
+                        <td>{{ orders.Drinks.drink_name     }}</td>
+                        <td>Cliente</td>
+                        <td>
+                            <p>Editar</p> |
+                            <p>Deletar</p>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

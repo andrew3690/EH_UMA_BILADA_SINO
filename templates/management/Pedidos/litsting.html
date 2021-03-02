@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+
+{%block title %}Orders Listing {% endblock %}
+
+{%block content %}
+    <div>
+        <a href="{% url 'orders:a_la_carte' %}" class = "btn btn-primary">Pedidos A la Carte</a>
+    </div>
+    <br>
+    <div>
+        <a href="{%url 'orders:rodizio' %}" class = "btn btn-primary">Rodizio</a>
+    </div>
+    <br>
+    <div>
+        <a href = "{% url 'orders:delivery'%}" class = "btn btn-primary">Delivery</a>
+    </div>
+{% endblock %}

@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'Pedidos.apps.PedidosConfig',
     'management.apps.ManagementConfig',
     'django.contrib.admin',
     'django.contrib.auth',

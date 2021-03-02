@@ -5,13 +5,11 @@
 {% block content %}
  <div class = "conteiner">
     <h3>Listagem de endereços</h3>
-    <a href= "{% url 'management:address_create' %}" class = "btn btn-primary">Novo Endereço</a>
     <table class = "table">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Endereço</th>
-                <th>Complemento</th>
+                <th>Status</th>
                 <th>Cidade</th>
                 <th>Estado</th>
                 <th>Açoes</th>
@@ -21,16 +19,14 @@
         <tbody>
             {% for address in object_list %}
                 <tr>
-                    <td>{{ address.pk }}</td>
                     <td>
-                        <a href= "{% url 'management:address_detail' address.pk %}">{{ address.address }}</a>
+                        <a>{{ address.address }}</a>
                     </td>
                     <td>{{ address.address_complement_normalized }}</td>
                     <td>{{ address.city }}</td>
                     <td>{{ address.states }}</td>
                     <td>
-                    <a href= "/list/{{ address.id }}/update/">Editar</a> |
-                    <a href= "/list/{{ address.id }}/destroy/">Deletar</a>
+                    <a href= "{% url 'management:address_detail' address.pk %}">Detalhes</a>
                     </td>
                 </tr>
             {% endfor %}

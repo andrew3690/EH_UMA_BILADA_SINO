@@ -1,0 +1,60 @@
+'''
+class TimestampableMixin(models.Model):
+    ordered_at = models.DateTimeField(auto_now_add=True)
+    brought_at = models.DateTimeField(auto_now = True,null=True)
+
+    class Meta:
+        abstract = True
+
+
+class Pratos(models.Model):
+    name_plates = models.CharField(max_length=200,default='sushi')
+    amount = models.IntegerField(default= 0)
+    plates_description = models.CharField(max_length=300,null= True,blank=True,default='nothing')
+    type_plates = models.CharField(max_length=150,choices=FOOD_TYPES,default="Sushi")
+    #plates_price = models.DecimalField(decimal_places=2,max_digits = 6,default= 0.00)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'Pratos'
+
+class Extras(models.Model):
+    extras_name = models.CharField(max_length=200,default='Nenhum')
+    extras_description = models.CharField(max_length=250,null= True,blank=True,default='Descriçao')
+    #extras_price = models.DecimalField(decimal_places=2,max_digits= 3,default=0.00)
+
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name_plural = 'Extras'
+
+class Drinks(models.Model):
+    drink_name = models.CharField(max_length=200,default="Agua")
+    drink_description = models.CharField(max_length=200,default='some description')
+    #drinks_price = models.DecimalField(decimal_places=2,max_digits=3,default=0.00)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'Drinks'
+
+
+class Pedido(models.Model):
+    pratos = models.ForeignKey(
+        Pratos,
+        on_delete= models.CASCADE,
+    )
+    prato_object_id = models.IntegerField()
+    prato_content_type = models.ForeignKey(
+        ContentType,
+        on_delete = models.PROTECT,
+    )
+    drink = GenericForeignKey(
+        'prato_content_type',
+        'prato_object_id',
+    )
+'''
