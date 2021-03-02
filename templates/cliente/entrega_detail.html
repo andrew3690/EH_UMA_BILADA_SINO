@@ -1,0 +1,31 @@
+{% extends "index.html" %}
+
+{% block title %} Detail {% endblock %}
+
+{% block content %}
+    <div class = "conteiner">
+        <h3>
+            Detalhes dos Funcionarios
+        </h3>
+
+        <table class = "talbe table-bordered">
+            <tbody>
+                <tr>
+                    <th scope = "row">Matricula</th>
+                    <td>{{ object.matricula }}</td>
+                </tr>
+
+                <tr>
+                    <th scope = "row">nome</th>
+                    <td>{{ object.nome }}</td>
+                </tr>
+
+                <tr>
+                    <th scope = "row">Funçao</th>
+                    <td>{{ object.Funçao }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="{%url 'main:entrega_detail' %}">Voltar</a>
+    </div>
+{% endblock %}

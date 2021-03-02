@@ -1,0 +1,18 @@
+{% extends "index.html" %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+
+    <div class = conteiner>
+        <h3> Home de Usuario</h3>
+            <p> Parabens voce foi atenticado com sucesso {% if request.user.is_authenticated %} {{ request.user.first_name  }} {% endif %}</p>
+            <a class = "btn btn-primary" href="{%url 'main:logout' %}">Logout</a>
+    </div>
+    <br>
+    <div class= conteiner>
+        <a class ="btn btn-primary" href="{%url 'main:entregas_lista' %}"\>Listagem de Endereços</a>
+    </div>
+
+
+{% endblock %}

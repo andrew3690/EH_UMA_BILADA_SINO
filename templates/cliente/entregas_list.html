@@ -1,0 +1,37 @@
+{% extends "index.html" %}
+
+{% block title %} Listagem de Endereços {% endblock %}
+
+{% block content %}
+ <div class = "conteiner">
+    <h3>Listagem de endereços</h3>
+    <table class = "table">
+        <thead>
+            <tr>
+                <th>Endereço</th>
+                <th>Status</th>
+                <th>Cidade</th>
+                <th>Estado</th>
+                <th>Açoes</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for address in object_list %}
+                <tr>
+                    <td>
+                        <a>{{ address.address }}</a>
+                    </td>
+                    <td>{{ address.status }}</td>
+                    <td>{{ address.timeLeft }}</td>
+                    <td>{{ address.states }}</td>
+                    <td>
+                    <a href= "{% url 'main:entrega_detail' address.pk %}">Detalhes</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a class = "btn btn-primary" href ="{%url 'main:home' %}">Voltar</a>
+ </div>
+{% endblock %}
