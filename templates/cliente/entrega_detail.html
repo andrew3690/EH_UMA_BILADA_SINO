@@ -10,6 +10,7 @@
 
         <table class = "talbe table-bordered">
             <tbody>
+                {% for object in object_list %}
                 <tr>
                     <th scope = "row">Matricula</th>
                     <td>{{ object.matricula }}</td>
@@ -23,6 +24,43 @@
                 <tr>
                     <th scope = "row">Funçao</th>
                     <td>{{ object.Funçao }}</td>
+                </tr>
+                {% endfor %} 
+            </tbody>
+        </table>
+
+        <h3>
+            Veiculo
+        </h3>
+
+        <table class = "talbe table-bordered">
+            <tbody>
+                <tr>
+                    <th scope = "row">Placa</th>
+                    <td>{{ object.placa }}</td>
+                </tr>
+
+                <tr>
+                    <th scope = "row">marca</th>
+                    <td>{{ object.marca }}</td>
+                </tr>
+
+                <tr>
+                    <th scope = "row">Funçao</th>
+                    <td>{{ object.Tipo_de_entrega }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>
+            Objetos da Entrega
+        </h3>
+
+        <table class = "talbe table-bordered">
+            <tbody>
+                <tr>
+                    <th scope = "row">Objetos</th>
+                    <td>{{ object.objetos }}</td>
                 </tr>
             </tbody>
         </table>

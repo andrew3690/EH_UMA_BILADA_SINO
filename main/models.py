@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 import time
 from datetime import timedelta
-
+from django.utils.timezone import utc
+import datetime as dt
 
 REQUEST_TYPES = (
 	('Pregos','pregos'),
@@ -15,9 +16,9 @@ REQUEST_TYPES = (
 )
 
 STATUS_TYPES = (
-	('PA','pedido aguardando'),
-	('EA','entrega em andamento'),
-	('E','entregue')
+	('Aguardando Pedido','pedido aguardando'),
+	('Entrega em Andamento','entrega em andamento'),
+	('Entregue','entregue')
 )
 
 DELIVERY_TYPES = (
@@ -67,11 +68,6 @@ class Entrega(models.Model):
 		max_length = 20,
 		default = "000-000"
 	)
-	objetos = models.CharField(
-		max_length = 25,
-		default= "esperando",
-		choices = REQUEST_TYPES
-	)
 	status = models.CharField(
 		max_length= 40,
 		default= 'esperando',
@@ -115,6 +111,46 @@ class Entrega(models.Model):
 		default="country"
 	)
 
+	user = models.ForeignKey(
+		User,
+		blank = True,
+		null = True,
+		on_delete = models.PROTECT
+	)
+
+	def get_time_diff(self):
+		now = dt.datetime.now()
+		delta = dt.timedelta(hours = 2)
+		t = now.time()
+		return (dt.datetime.combine(dt.date(1,1,1),t) + delta).time()
+	
+	def enviar(self):
+		self.time = time.time()
+
+	'''
+	def timeLeft(self):
+		t = time.time()
+		perido = self.tempo - t 
+		return perido
+
+	#time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(ts))
+
+	'''
+	'''
+		intervalo_tempo = 10
+		t = time.time()
+		return t - self.time
+		#return time.strftime("%H:%M", timedelta(self.time - t)
+	'''
+	
+	class Meta:
+		verbose_name_plural = "Entregas"
+
+
+	def __str__(self):
+		return "%s, %s"%(self.numero,self.status)
+
+class Funcionario(models.Model):
 	matricula = models.CharField(
 		max_length= 30,
 		default = "000"
@@ -138,21 +174,63 @@ class Entrega(models.Model):
 		on_delete = models.PROTECT
 	)
 
-	#time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(ts))
-
-	#tempo = models.TimeField(auto_now_add=True)
-	def enviar(self):
-		self.time = time.time()
-
-	def timeLeft(self):
-		intervalo_tempo = 10
-		t = time.time()
-		return t - self.time
-		#return time.strftime("%H:%M", timedelta(self.time - t)
+	def __str__(self):
+		return "%s, %s"%(self.matricula,self.nome)
 
 	class Meta:
-		verbose_name_plural = "Entregas"
+		verbose_name_plural = "Funcionarios"
 
+class Veiculo(models.Model):
+	placa = models.CharField(
+		max_length = 40,
+		default = ""
+	)
+
+	marca_chassi = models.CharField(
+		max_length = 20,
+		default= "Iveco"
+	)
+
+	motor = models.CharField(
+		max_length = 20,
+		default = "Honda"
+	)
+
+	Tipo_de_Entrega = models.CharField(
+		max_length = 20,
+		default = "a definir",
+		choices = DELIVERY_TYPES  
+	)
+
+	user = models.ForeignKey(
+		User,
+		blank = True,
+		null = True,
+		on_delete = models.PROTECT
+	)
+
+	def __str__ (self):
+		return "%s, %s" %(self.placa,self.marca_chassi)
+
+	class Meta:
+		verbose_name_plural = "Veiculos"
+	
+class Objeto(models.Model):
+	objetos = models.CharField(
+		max_length = 25,
+		default= "esperando",
+		choices = REQUEST_TYPES
+	)
+
+	user = models.ForeignKey(
+		User,
+		blank = True,
+		null = True,
+		on_delete = models.PROTECT
+	)
 
 	def __str__(self):
-		return "%s, %s"%(self.numero,self.status)
+		return "%s, %s"%(self.objetos,self.user)
+	
+	class Meta:
+		verbose_name_plural = "Objetos"

@@ -11,6 +11,7 @@
                 <th>Endereço</th>
                 <th>Status</th>
                 <th>Cidade</th>
+                <th>Tempo</th>
                 <th>Estado</th>
                 <th>Açoes</th>
             </tr>
@@ -23,7 +24,8 @@
                         <a>{{ address.address }}</a>
                     </td>
                     <td>{{ address.status }}</td>
-                    <td>{{ address.timeLeft }}</td>
+                    <td>{{ address.city }}</td>
+                    <td>Chegada ás {{ address.get_time_diff }}</td>
                     <td>{{ address.states }}</td>
                     <td>
                     <a href= "{% url 'main:entrega_detail' address.pk %}">Detalhes</a>

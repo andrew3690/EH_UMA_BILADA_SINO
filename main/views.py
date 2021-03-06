@@ -8,9 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 
-from .models import Entrega
-
-intervalo_tempo = 10
+from .models import Entrega,Funcionario,Objeto,Veiculo
 
 '''
 class FormSubmittedInContextMixin:
@@ -48,12 +46,21 @@ class EntregaDetailView(LoginRequiredMixin,DetailView):
 	model = Entrega
 	template_name = 'cliente/entrega_detail.html'
 
+	def get_queryset(self,*args,**kwargs):
+		queryset = Entrega.objects.filter(user = self.request.user)
+			
+		for o in queryset:
+			o.enviar()
+		return queryset
+	
 class EntregaListView(LoginRequiredMixin,ListView):
 	model = Entrega
 	template_name = 'cliente/entregas_list.html'
 
+	## separaçao de objetos de cada usuario
 	def get_queryset(self,*args,**kwargs):
 		queryset = Entrega.objects.filter(user = self.request.user)
+			
 		for o in queryset:
 			o.enviar()
 		return queryset
