@@ -1,0 +1,29 @@
+{% extends "index.html" %}
+
+{% block title %} Detail {% endblock %}
+
+{% block content %}
+    <div class = "conteiner">
+        <h3>
+            Funcionarios
+        </h3>
+    <table class = "table">
+        <thead>
+            <tr>
+                <th scope="row">Nome</th>
+                <th scope="row">Funcao</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for object in object_list %}
+                <tr>
+                    <td>{{ object.nome }}</td>
+                    <td>{{ object.get_funcao_display }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        <a class= "btn btn-primary" href="{%url 'main:entregas_lista' %}">Voltar</a>
+    </div>
+{% endblock %}

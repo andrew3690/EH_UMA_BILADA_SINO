@@ -1,0 +1,18 @@
+{% extends "index.html" %}
+
+{% block title %} Listagem de Endereços {% endblock %}
+
+{% block content %}
+ <div class = "conteiner">
+    <h3>Listagem de produtos</h3>
+
+        {% for object in object_list %}
+            <p>
+                {{ object }}
+            </p>
+        {% endfor %}
+
+    <a class = "btn btn-info" href="{% url 'main:create_objeto' %}">Criar</a>
+    <a class = "btn btn-primary" href ="{%url 'main:gerenciador_home' %}">Voltar</a>
+ </div>
+{% endblock %}

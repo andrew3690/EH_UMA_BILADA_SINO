@@ -4,7 +4,7 @@
 
 {% block content %}
  <div class = "conteiner">
-    <h3>Listagem de endereços</h3>
+    <h3>Listagem de entregas</h3>
     <table class = "table">
         <thead>
             <tr>
@@ -27,11 +27,13 @@
                     <td>{{ object.get_states_display }}</td>
                     <td>
                     <a class = "btn btn-secondary" href= "{% url 'main:entrega_detail' object.pk %}">Detalhes</a>
+                    <a class = "btn btn-success" href= "">enviar</a>
                     </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-    <a class = "btn btn-primary" href ="{%url 'main:home' %}">Voltar</a>
+    <a class = "btn btn-info" href="{% url 'main:create_entrega' %}">Criar</a>
+    <a class = "btn btn-primary" href ="{%url 'main:gerenciador_home' %}">Voltar</a>
  </div>
 {% endblock %}

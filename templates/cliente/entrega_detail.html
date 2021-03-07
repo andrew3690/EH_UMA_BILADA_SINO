@@ -5,65 +5,61 @@
 {% block content %}
     <div class = "conteiner">
         <h3>
-            Detalhes dos Funcionarios
+            Detalhes da Entrega
         </h3>
 
-        <table class = "talbe table-bordered">
-            <tbody>
-                {% for object in object_list %}
-                <tr>
-                    <th scope = "row">Matricula</th>
-                    <td>{{ object.matricula }}</td>
-                </tr>
-
-                <tr>
-                    <th scope = "row">nome</th>
-                    <td>{{ object.nome }}</td>
-                </tr>
-
-                <tr>
-                    <th scope = "row">Funçao</th>
-                    <td>{{ object.Funçao }}</td>
-                </tr>
-                {% endfor %} 
-            </tbody>
-        </table>
-
-        <h3>
-            Veiculo
-        </h3>
-
-        <table class = "talbe table-bordered">
+        <table class = "table table-bordered">
             <tbody>
                 <tr>
-                    <th scope = "row">Placa</th>
-                    <td>{{ object.placa }}</td>
+                    <th scope = "row">Previsão de chegada</th>
+                    <td>{{ object.get_time_diff }}</td>
                 </tr>
 
                 <tr>
-                    <th scope = "row">marca</th>
-                    <td>{{ object.marca }}</td>
+                    <th scope = "row">status</th>
+                    <td>{{ object.get_status_display }}</td>
                 </tr>
 
                 <tr>
-                    <th scope = "row">Funçao</th>
-                    <td>{{ object.Tipo_de_entrega }}</td>
+                    <th scope = "row">tipo de maquinario</th>
+                    <td>{{ object.get_descarga_display }}</td>
                 </tr>
-            </tbody>
-        </table>
 
-        <h3>
-            Objetos da Entrega
-        </h3>
-
-        <table class = "talbe table-bordered">
-            <tbody>
                 <tr>
-                    <th scope = "row">Objetos</th>
-                    <td>{{ object.objetos }}</td>
+                    <th scope = "row">endereco</th>
+                    <td>{{ object.address }}</td>
+                </tr>
+
+                <tr>
+                    <th scope = "row">complemento</th>
+                    <td>{{ object.address_complement }}</td>
+                </tr>
+
+                <tr>
+                    <th scope = "row">cidade</th>
+                    <td>{{ object.city }}</td>
+                </tr>
+
+                <tr>
+                    <th scope = "row">estado</th>
+                    <td>{{ object.get_states_display }}</td>
+                </tr>
+
+                <tr>
+                    <th scope = "row">país</th>
+                    <td>{{ object.country }}</td>
+                </tr>
+
+                <tr>
+                    <th scope = "row">placa do veículo de entrega</th>
+                    <td>{{ object.veiculo }}</td>
                 </tr>
             </tbody>
         </table>
-        <a href="{%url 'main:entrega_detail' %}">Voltar</a>
+        <p>
+            <a class = "btn btn-secondary" href = "{% url 'main:entrega_detail_produtos' object.pk%}">Ver produtos</a>
+            <a class = "btn btn-secondary" href = "{% url 'main:entrega_detail_funcionarios' object.pk%}">Ver funcionarios</a>
+        </p>
+        <a class= "btn btn-primary" href="{%url 'main:entregas_lista' %}">Voltar</a>
     </div>
 {% endblock %}

@@ -63,11 +63,50 @@ STATES_CHOICES = (
 	('TO', 'Tocantins'),
 )
 
-class Entrega(models.Model):
-	numero = models.CharField(
-		max_length = 20,
-		default = "000-000"
+class Funcionario(models.Model):
+	nome = models.CharField(
+		max_length= 30,
+		default = "Arnaldao Sangue Bom"
 	)
+
+	funcao = models.CharField(
+		max_length= 50,
+		default = "nenhuma",
+		choices = ROLE_TYPES
+	)
+
+	def __str__(self):
+		return "%s, %s"%(self.nome, self.funcao)
+
+	class Meta:
+		verbose_name_plural = "Funcionarios"
+
+class Veiculo(models.Model):
+	placa = models.CharField(
+		max_length = 40,
+		default = ""
+	)
+
+	def __str__(self):
+		return "%s" %(self.placa)
+
+	class Meta:
+		verbose_name_plural = "Veiculos"
+	
+class Objeto(models.Model):
+	objetos = models.CharField(
+		max_length = 25,
+		default= "esperando",
+		choices = REQUEST_TYPES
+	)
+
+	def __str__(self):
+		return "%s"%(self.objetos)
+	
+	class Meta:
+		verbose_name_plural = "Objetos"
+
+class Entrega(models.Model):
 	status = models.CharField(
 		max_length= 40,
 		default= 'esperando',
@@ -82,11 +121,6 @@ class Entrega(models.Model):
 	address = models.CharField(
 		max_length = 200,
 		default = "endereço"
-	)
-
-	CEP = models.CharField(
-		max_length= 10,
-		default= "00.000-000"
 	)
 
 	address_complement = models.CharField(
@@ -116,6 +150,20 @@ class Entrega(models.Model):
 		blank = True,
 		null = True,
 		on_delete = models.PROTECT
+	)
+
+	veiculo = models.ForeignKey(
+		Veiculo,
+		on_delete = models.CASCADE,
+		null = True
+	)
+
+	produtos = models.ManyToManyField(
+		Objeto
+	)
+
+	funcionarios = models.ManyToManyField(
+		Funcionario
 	)
 
 	def get_time_diff(self):
@@ -148,89 +196,5 @@ class Entrega(models.Model):
 
 
 	def __str__(self):
-		return "%s, %s"%(self.numero,self.status)
+		return "%s"%(self.address)
 
-class Funcionario(models.Model):
-	matricula = models.CharField(
-		max_length= 30,
-		default = "000"
-	)
-
-	nome = models.CharField(
-		max_length= 30,
-		default = "Arnaldao Sangue Bom"
-	)
-
-	funçao = models.CharField(
-		max_length= 50,
-		default = "nenhuma",
-		choices = ROLE_TYPES
-	)
-
-	user = models.ForeignKey(
-		User,
-		blank = True,
-		null = True,
-		on_delete = models.PROTECT
-	)
-
-	def __str__(self):
-		return "%s, %s"%(self.matricula,self.nome)
-
-	class Meta:
-		verbose_name_plural = "Funcionarios"
-
-class Veiculo(models.Model):
-	placa = models.CharField(
-		max_length = 40,
-		default = ""
-	)
-
-	marca_chassi = models.CharField(
-		max_length = 20,
-		default= "Iveco"
-	)
-
-	motor = models.CharField(
-		max_length = 20,
-		default = "Honda"
-	)
-
-	Tipo_de_Entrega = models.CharField(
-		max_length = 20,
-		default = "a definir",
-		choices = DELIVERY_TYPES  
-	)
-
-	user = models.ForeignKey(
-		User,
-		blank = True,
-		null = True,
-		on_delete = models.PROTECT
-	)
-
-	def __str__ (self):
-		return "%s, %s" %(self.placa,self.marca_chassi)
-
-	class Meta:
-		verbose_name_plural = "Veiculos"
-	
-class Objeto(models.Model):
-	objetos = models.CharField(
-		max_length = 25,
-		default= "esperando",
-		choices = REQUEST_TYPES
-	)
-
-	user = models.ForeignKey(
-		User,
-		blank = True,
-		null = True,
-		on_delete = models.PROTECT
-	)
-
-	def __str__(self):
-		return "%s, %s"%(self.objetos,self.user)
-	
-	class Meta:
-		verbose_name_plural = "Objetos"

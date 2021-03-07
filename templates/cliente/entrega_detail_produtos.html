@@ -1,0 +1,16 @@
+{% extends "index.html" %}
+
+{% block title %} Detail {% endblock %}
+
+{% block content %}
+    <div class = "conteiner">
+        <h3>
+            Produtos
+        </h3>
+
+            {% for object in object_list %}
+                <p>{{object}}</p>
+            {% endfor %}
+        <a class= "btn btn-primary" href="{%url 'main:entregas_lista' %}">Voltar</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "index.html" %}
+
+{% block title %} Listagem de Endereços {% endblock %}
+
+{% block content %}
+ <div class = "conteiner">
+   <p>
+      <a class = "btn btn-primary" href="{% url 'main:gerenciador_entregas' %}">Entregas</a>
+   </p>
+   <p>
+      <a class = "btn btn-primary" href="{% url 'main:gerenciador_funcionarios' %}">Funcionarios</a>
+   </p>
+   <p>
+      <a class = "btn btn-primary" href="{% url 'main:gerenciador_veiculos' %}">Veiculos</a>
+   </p>
+   <p>
+      <a class = "btn btn-primary" href="{% url 'main:gerenciador_objetos' %}">Produtos</a>
+   </p>
+ </div>
+{% endblock %}
