@@ -19,4 +19,5 @@ class RegisterVeiculoForm(forms.ModelForm):
 class RegisterEntregaForm(forms.ModelForm):
 	class Meta:
 		model = Entrega
-		fields = "__all__"
+		#fields = "__all__"
+		exclude = ['time']

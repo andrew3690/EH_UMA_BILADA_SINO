@@ -2,8 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 import time
 from datetime import timedelta
-from django.utils.timezone import utc
 import datetime as dt
+from django.utils.timezone import utc
 
 REQUEST_TYPES = (
 	('Pregos','pregos'),
@@ -166,15 +166,17 @@ class Entrega(models.Model):
 		Funcionario
 	)
 
-	def get_time_diff(self):
-		now = dt.datetime.now()
-		delta = dt.timedelta(hours = 2)
-		t = now.time()
-		return (dt.datetime.combine(dt.date(1,1,1),t) + delta).time()
-	
-	def enviar(self):
-		self.time = time.time()
+	time = models.DateTimeField(
+		null = True,
+		blank = True
+	)
 
+	def get_time_diff(self):
+		if (self.time):
+			print(type(self), type(self.time))
+			t = dt.datetime.now()
+			return self.time.replace(tzinfo=None) - t
+		return "ainda nao enviado"
 	'''
 	def timeLeft(self):
 		t = time.time()

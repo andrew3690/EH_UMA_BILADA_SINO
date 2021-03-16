@@ -10,6 +10,7 @@ gerenciador_patterns = [
     path("funcionarios/", views.FuncionarioGerListView.as_view(), name = "gerenciador_funcionarios"),
     path("veiculos/", views.VeiculoGerListView.as_view(), name = "gerenciador_veiculos"),
     path("objetos/", views.ObjetoGerListView.as_view(), name = "gerenciador_objetos"),
+    path("enviar/<int:pk>", views.EnviarEntrega, name = "gerenciador_enviar_entrega"),
 
     path("create_funcionario/", views.CreateFuncionarioView.as_view(), name = "create_funcionario"),
     path("create_objeto/", views.CreateObjetoView.as_view(), name = "create_objeto"),
