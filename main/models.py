@@ -173,7 +173,6 @@ class Entrega(models.Model):
 
 	def get_time_diff(self):
 		if (self.time):
-			print(type(self), type(self.time))
 			t = dt.datetime.now()
 			return self.time.replace(tzinfo=None) - t
 		return "ainda nao enviado"

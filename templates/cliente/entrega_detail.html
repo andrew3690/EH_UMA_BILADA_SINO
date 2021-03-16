@@ -60,6 +60,10 @@
             <a class = "btn btn-secondary" href = "{% url 'main:entrega_detail_produtos' object.pk%}">Ver produtos</a>
             <a class = "btn btn-secondary" href = "{% url 'main:entrega_detail_funcionarios' object.pk%}">Ver funcionarios</a>
         </p>
+        {% if user.is_superuser %}
+        <a class= "btn btn-primary" href="{%url 'main:gerenciador_entregas' %}">Voltar</a>
+        {% else %}
         <a class= "btn btn-primary" href="{%url 'main:entregas_lista' %}">Voltar</a>
+        {% endif %}
     </div>
 {% endblock %}
