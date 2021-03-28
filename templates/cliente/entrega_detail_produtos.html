@@ -11,6 +11,10 @@
             {% for object in object_list %}
                 <p>{{object}}</p>
             {% endfor %}
+        {% if user.is_superuser %}
+        <a class= "btn btn-primary" href="{%url 'main:gerenciador_entregas' %}">Voltar</a>
+        {% else %}
         <a class= "btn btn-primary" href="{%url 'main:entregas_lista' %}">Voltar</a>
+        {% endif %}
     </div>
 {% endblock %}

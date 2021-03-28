@@ -5,21 +5,19 @@
 {% block content %}
  <div class = "conteiner">
     <h3>Listagem de veiculos</h3>
-    <table class = "table">
-        <thead>
-            <tr>
-                <th>Placa</th>
-            </tr>
-        </thead>
-
-        <tbody>
+        <ul>
             {% for object in object_list %}
-                <tr>
-                    <td>{{ object }}</td>
-                </tr>
+                <li>
+                    {{ object }}
+                     - 
+                    {% if object.em_uso %}
+                        esta em uso
+                    {% else %}
+                        nao esta em uso
+                    {% endif %}
+                </li>
             {% endfor %}
-        </tbody>
-    </table>
+        </ul>
     <a class = "btn btn-info" href="{% url 'main:create_veiculo' %}">Criar</a>
     <a class = "btn btn-primary" href ="{%url 'main:gerenciador_home' %}">Voltar</a>
  </div>

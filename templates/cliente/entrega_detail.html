@@ -16,11 +16,6 @@
                 </tr>
 
                 <tr>
-                    <th scope = "row">status</th>
-                    <td>{{ object.get_status_display }}</td>
-                </tr>
-
-                <tr>
                     <th scope = "row">tipo de maquinario</th>
                     <td>{{ object.get_descarga_display }}</td>
                 </tr>
@@ -52,7 +47,7 @@
 
                 <tr>
                     <th scope = "row">placa do veículo de entrega</th>
-                    <td>{{ object.veiculo }}</td>
+                    <td>{{ object.veiculo.placa }}</td>
                 </tr>
             </tbody>
         </table>

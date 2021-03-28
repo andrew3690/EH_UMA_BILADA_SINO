@@ -7,6 +7,7 @@ app_name = 'main'
 gerenciador_patterns = [
     path("", views.HomeGerenciadorView.as_view(), name = "gerenciador_home"),
     path("entregas/", views.EntregaGerListView.as_view(), name = "gerenciador_entregas"),
+    path("lojas/", views.LojaGerListView.as_view(), name = "gerenciador_lojas"),
     path("funcionarios/", views.FuncionarioGerListView.as_view(), name = "gerenciador_funcionarios"),
     path("veiculos/", views.VeiculoGerListView.as_view(), name = "gerenciador_veiculos"),
     path("objetos/", views.ObjetoGerListView.as_view(), name = "gerenciador_objetos"),
@@ -16,7 +17,7 @@ gerenciador_patterns = [
     path("create_objeto/", views.CreateObjetoView.as_view(), name = "create_objeto"),
     path("create_veiculo/", views.CreateVeiculoView.as_view(), name = "create_veiculo"),
     path("create_entrega/", views.CreateEntregaView.as_view(), name = "create_entrega"),
-    
+    path("create_loja/", views.CreateLojaView.as_view(), name = "create_loja"),
 ]
 
 urlpatterns  = [

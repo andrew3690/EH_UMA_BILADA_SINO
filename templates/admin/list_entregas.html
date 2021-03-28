@@ -9,7 +9,6 @@
         <thead>
             <tr>
                 <th>Endereço</th>
-                <th>Status</th>
                 <th>Cidade</th>
                 <th>Chegada em</th>
                 <th>Estado</th>
@@ -21,13 +20,11 @@
             {% for object in object_list %}
                 <tr>
                     <td>{{ object.address }}</td>
-                    <td>{{ object.get_status_display }}</td>
                     <td>{{ object.city }}</td>
                     <td>{{ object.get_time_diff }}</td>
                     <td>{{ object.get_states_display }}</td>
                     <td>
                     <a class = "btn btn-secondary" href= "{% url 'main:entrega_detail' object.pk %}">Detalhes</a>
-                    <a class = "btn btn-success" href= "{% url 'main:gerenciador_enviar_entrega' object.pk %}">enviar</a>
                     </td>
                 </tr>
             {% endfor %}

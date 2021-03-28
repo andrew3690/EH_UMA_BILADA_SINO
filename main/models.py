@@ -15,12 +15,6 @@ REQUEST_TYPES = (
 	('Tijolos','tijolos')
 )
 
-STATUS_TYPES = (
-	('Aguardando Pedido','pedido aguardando'),
-	('Entrega em Andamento','entrega em andamento'),
-	('Entregue','entregue')
-)
-
 DELIVERY_TYPES = (
 	('MEP','Maquinario Extremamente Pesado'),
 	('MP','Maqunario Pesado'),
@@ -75,6 +69,10 @@ class Funcionario(models.Model):
 		choices = ROLE_TYPES
 	)
 
+	em_uso = models.BooleanField(
+		default = False
+	)
+
 	def __str__(self):
 		return "%s, %s"%(self.nome, self.funcao)
 
@@ -87,31 +85,49 @@ class Veiculo(models.Model):
 		default = ""
 	)
 
+	espaco_usado = models.IntegerField(
+		default = 0
+	)
+
+	capacidade = models.IntegerField(
+		null = True
+	)
+
+	em_uso = models.BooleanField(
+		default = False
+	)
+
 	def __str__(self):
-		return "%s" %(self.placa)
+		return "placa: %s, capacidade: %s" %(self.placa, self.capacidade)
 
 	class Meta:
 		verbose_name_plural = "Veiculos"
 	
 class Objeto(models.Model):
-	objetos = models.CharField(
+	objeto = models.CharField(
 		max_length = 25,
 		default= "esperando",
 		choices = REQUEST_TYPES
 	)
 
+	espaco = models.IntegerField(
+		null = True
+	)
+
+	quantidade = models.IntegerField(
+		null = True
+	)
+
 	def __str__(self):
-		return "%s"%(self.objetos)
+		return "%d %s"%(self.quantidade, self.objeto)
+
+	def get_espaco_total(self):
+		return (self.espaco * self.quantidade)
 	
 	class Meta:
 		verbose_name_plural = "Objetos"
 
 class Entrega(models.Model):
-	status = models.CharField(
-		max_length= 40,
-		default= 'esperando',
-		choices = STATUS_TYPES
-	)
 	descarga = models.CharField(
 		max_length = 40,
 		default= 'esperando',
@@ -176,21 +192,7 @@ class Entrega(models.Model):
 			t = dt.datetime.now()
 			return self.time.replace(tzinfo=None) - t
 		return "ainda nao enviado"
-	'''
-	def timeLeft(self):
-		t = time.time()
-		perido = self.tempo - t 
-		return perido
 
-	#time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(ts))
-
-	'''
-	'''
-		intervalo_tempo = 10
-		t = time.time()
-		return t - self.time
-		#return time.strftime("%H:%M", timedelta(self.time - t)
-	'''
 	
 	class Meta:
 		verbose_name_plural = "Entregas"
@@ -198,4 +200,50 @@ class Entrega(models.Model):
 
 	def __str__(self):
 		return "%s"%(self.address)
+
+class Loja(models.Model):
+	identificacao = models.CharField(
+		max_length = 200,
+		default = "loja"
+	)
+
+	city = models.CharField(
+		max_length = 200,
+		default = "city"
+	)
+
+	states = models.CharField(
+		max_length = 200,
+		choices = STATES_CHOICES,
+		default="states"
+	)
+
+	veiculos = models.ManyToManyField(
+		Veiculo
+	)
+
+	funcionarios = models.ManyToManyField(
+		Funcionario
+	)
+
+	entregas = models.ManyToManyField(
+		Entrega
+	)
+
+	def get_veiculo_disponivel(self, espaco):
+		for veiculo in self.veiculos.all():
+			print(veiculo.em_uso, veiculo.capacidade, espaco)
+			if ((not veiculo.em_uso) and (veiculo.capacidade - veiculo.espaco_usado >= espaco)):
+				return veiculo
+		return None
+	
+	def get_funcionarios_disponiveis(self):
+		for funcionario in self.funcionarios.all():
+			print(funcionario)
+			if (not funcionario.em_uso):
+				return [funcionario]
+		return None
+
+	def __str__(self):
+		return ("%s" % (self.identificacao))
 

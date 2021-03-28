@@ -10,6 +10,7 @@
             <tr>
                 <th>Nome</th>
                 <th>Funcao</th>
+                <th>Em uso</th>
             </tr>
         </thead>
 
@@ -18,6 +19,13 @@
                 <tr>
                     <td>{{ object.nome }}</td>
                     <td>{{ object.get_funcao_display }}</td>
+                    <td>
+                        {% if object.em_uso %}
+                            sim
+                        {% else %}
+                            nao
+                        {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

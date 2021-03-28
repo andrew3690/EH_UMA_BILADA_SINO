@@ -1,10 +1,10 @@
 from django import forms
-from .models import Funcionario, Objeto, Veiculo, Entrega
+from .models import Funcionario, Objeto, Veiculo, Entrega, Loja
 
 class RegisterFuncionarioForm(forms.ModelForm):
 	class Meta:
 		model = Funcionario
-		fields = "__all__"
+		exclude = ["em_uso"]
 
 class RegisterObjetoForm(forms.ModelForm):
 	class Meta:
@@ -14,10 +14,16 @@ class RegisterObjetoForm(forms.ModelForm):
 class RegisterVeiculoForm(forms.ModelForm):
 	class Meta:
 		model = Veiculo
-		fields = "__all__"
+		exclude = ["em_uso", "espaco_usado"]
 
 class RegisterEntregaForm(forms.ModelForm):
 	class Meta:
 		model = Entrega
 		#fields = "__all__"
-		exclude = ['time']
+		exclude = ['time', 'veiculo', 'funcionarios']
+
+class RegisterLojaForm(forms.ModelForm):
+	class Meta:
+		model = Loja
+		exclude = ["entregas"]
+		

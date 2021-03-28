@@ -9,11 +9,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 import time
+from functools import reduce
 from datetime import timedelta
 import datetime as dt
 
-from .models import Entrega,Funcionario,Objeto,Veiculo
-from .forms import RegisterFuncionarioForm, RegisterObjetoForm, RegisterVeiculoForm, RegisterEntregaForm
+from .models import Entrega,Funcionario,Objeto,Veiculo,Loja
+from .forms import RegisterFuncionarioForm, RegisterObjetoForm, RegisterVeiculoForm, RegisterEntregaForm, RegisterLojaForm
 
 
 '''
@@ -47,11 +48,21 @@ class CreateEntregaView(LoginRequiredMixin, FormView, CreateView):
 	template_name = "admin/create_entrega.html"
 	form_class = RegisterEntregaForm
 	def get_success_url(self):
-		return reverse('main:gerenciador_entregas')
+		return reverse('main:gerenciador_enviar_entrega', args = (self.object.id, ))
+
+class CreateLojaView(LoginRequiredMixin, FormView, CreateView):
+	template_name = "admin/create_loja.html"
+	form_class = RegisterLojaForm
+	def get_success_url(self):
+		return reverse("main:gerenciador_lojas")
 
 class EntregaGerListView(LoginRequiredMixin, ListView):
 	model = Entrega
 	template_name = "admin/list_entregas.html"
+
+class LojaGerListView(LoginRequiredMixin, ListView):
+	model = Loja
+	template_name = "admin/list_lojas.html"
 
 class FuncionarioGerListView(LoginRequiredMixin, ListView):
 	model = Funcionario
@@ -67,11 +78,45 @@ class VeiculoGerListView(LoginRequiredMixin, ListView):
 
 def EnviarEntrega(request, pk):
 	o = Entrega.objects.filter(pk = pk).get()
-	now = dt.datetime.now()
-	#delta = dt.timedelta(hours = 2)
-	o.time = now #+ delta
-	o.save()
-	print(o.time)
+	espaco_necessario = reduce(lambda x, y: x + y, [k.get_espaco_total() for k in o.produtos.all()])
+	lojas = Loja.objects.filter(states = o.states)
+	for loja in lojas:
+		entregas = loja.entregas.all()
+		for entrega in entregas:
+			if (entrega.veiculo.capacidade >= entrega.veiculo.espaco_usado + espaco_necessario):
+				entrega.veiculo.espaco_usado += espaco_necessario
+				entrega.veiculo.save()
+				for produto in o.produtos.all():
+					entrega.produtos.add(produto)
+				if ((entrega.veiculo.espaco_usado) * 100 / entrega.veiculo.capacidade > 50):
+					now = dt.datetime.now()
+					delta = dt.timedelta(hours = 2)
+					entrega.time = now #+ delta
+				o.delete()
+				entrega.save()
+				return HttpResponseRedirect(reverse('main:gerenciador_entregas'))
+
+	for loja in lojas:
+		veiculo = loja.get_veiculo_disponivel(espaco_necessario)
+		funcionarios = loja.get_funcionarios_disponiveis()
+		if (veiculo != None and funcionarios != None):
+			veiculo.espaco_usado += espaco_necessario
+			veiculo.em_uso = True
+			veiculo.save()
+			for funcionario in funcionarios:
+				funcionario.em_uso = True
+				funcionario.save()
+				o.funcionarios.add(funcionario)
+			o.veiculo = veiculo
+			if ((veiculo.espaco_usado) * 100 / veiculo.capacidade > 50):
+				now = dt.datetime.now()
+				delta = dt.timedelta(hours = 2)
+				o.time = now #+ delta
+			o.save()
+			loja.entregas.add(o)
+		else:
+			o.delete()
+
 	return HttpResponseRedirect(reverse('main:gerenciador_entregas'))
 
 
