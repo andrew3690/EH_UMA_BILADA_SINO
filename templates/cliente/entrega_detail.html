@@ -1,0 +1,64 @@
+{% extends "index.html" %}
+
+{% block title %} Detail {% endblock %}
+
+{% block content %}
+    <div class = "conteiner">
+        <h3>
+            Detalhes da Entrega
+        </h3>
+
+        <table class = "table table-bordered">
+            <tbody>
+                <tr>
+                    <th scope = "row">Previsão de chegada</th>
+                    <td>{{ object.get_time_diff }}</td>
+                </tr>
+
+                <tr>
+                    <th scope = "row">tipo de maquinario</th>
+                    <td>{{ object.get_descarga_display }}</td>
+                </tr>
+
+                <tr>
+                    <th scope = "row">endereco</th>
+                    <td>{{ object.address }}</td>
+                </tr>
+
+                <tr>
+                    <th scope = "row">complemento</th>
+                    <td>{{ object.address_complement }}</td>
+                </tr>
+
+                <tr>
+                    <th scope = "row">cidade</th>
+                    <td>{{ object.city }}</td>
+                </tr>
+
+                <tr>
+                    <th scope = "row">estado</th>
+                    <td>{{ object.get_states_display }}</td>
+                </tr>
+
+                <tr>
+                    <th scope = "row">país</th>
+                    <td>{{ object.country }}</td>
+                </tr>
+
+                <tr>
+                    <th scope = "row">placa do veículo de entrega</th>
+                    <td>{{ object.veiculo.placa }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            <a class = "btn btn-secondary" href = "{% url 'main:entrega_detail_produtos' object.pk%}">Ver produtos</a>
+            <a class = "btn btn-secondary" href = "{% url 'main:entrega_detail_funcionarios' object.pk%}">Ver funcionarios</a>
+        </p>
+        {% if user.is_superuser %}
+        <a class= "btn btn-primary" href="{%url 'main:gerenciador_entregas' %}">Voltar</a>
+        {% else %}
+        <a class= "btn btn-primary" href="{%url 'main:entregas_lista' %}">Voltar</a>
+        {% endif %}
+    </div>
+{% endblock %}

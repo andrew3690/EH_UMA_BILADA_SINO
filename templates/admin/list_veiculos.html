@@ -1,0 +1,38 @@
+{% extends "index.html" %}
+
+{% block title %} Listagem de Endereços {% endblock %}
+
+{% block content %}
+ <div class = "conteiner">
+    <h3>Listagem de veiculos</h3>
+    <table class = "table">
+        <thead>
+            <tr>
+                <th>Veiculo</th>
+                <th>Disponibilidade do veiculo</th>
+                <th>capacidade</th>
+                <th>peso total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for object in object_list %}
+                <tr>
+                    <td>{{ object }}</td>
+                     <td>
+                    {% if object.em_uso %}
+                        esta em uso
+                    {% else %}
+                        nao esta em uso
+                    {% endif %}
+                    </td>
+                    <td>{{ object.retorna_carga }}</td>
+                    <td>{{ object.peso_total }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a class = "btn btn-info" href="{% url 'main:create_veiculo' %}">Criar</a>
+    <a class = "btn btn-primary" href ="{%url 'main:gerenciador_home' %}">Voltar</a>
+ </div>
+{% endblock %}
