@@ -32,22 +32,6 @@
         </tbody>
     </table>
     
-    <table class = "table">
-        <thead>
-            <tr>
-                <th>Carga total</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <tr>
-                {% for object in object_list %}
-                <td>{{ object.carga_total }}</td>
-                {% endfor %}
-            </tr>
-        </tbody>
-    </table>
-    
     <a class = "btn btn-info" href="{% url 'main:create_veiculo' %}">Criar</a>
     <a class = "btn btn-primary" href ="{%url 'main:gerenciador_home' %}">Voltar</a>
  </div>

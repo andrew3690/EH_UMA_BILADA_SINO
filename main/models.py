@@ -134,12 +134,16 @@ class Veiculo(models.Model):
 	)
 
 	def retorna_carga(self):
+		bol = False
 		cap = self.capacidade
 		if cap <= 2500:
+			bol = True
 			return "Veiculo de baixa capacidade de carga"
 		elif cap < 2500 and cap <= 5000:
+			bol = True
 			return "Veiculo de média capacidade de carga"
 		elif cap > 5000:
+			bol = True
 			return "Veiculo de alta capacidade de carga"
 
 	def peso_total(self):
@@ -149,10 +153,11 @@ class Veiculo(models.Model):
 		peso = sum(lista)
 		return peso
 	'''
-	def carga_total(self,total):
-		#inserir logica para comparação de inserção de objetos dependendo da capacidade de carga do veiculo
-		#peso_comparador = self.retorna_carga
-		return total
+	def carga_total(self):
+		comp = self.retorna_carga()
+		while(comp != True):
+			return "este veiculo não suporta esta quantidade de carga"
+		return self.peso_total()	
 	'''
 	def __str__(self):
 		return "placa: %s, capacidade: %s" %(self.placa, self.capacidade)
