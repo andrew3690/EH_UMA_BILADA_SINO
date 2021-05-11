@@ -59,6 +59,9 @@ class CreateLojaView(LoginRequiredMixin, FormView, CreateView):
 class EntregaGerListView(LoginRequiredMixin, ListView):
 	model = Entrega
 	template_name = "admin/list_entregas.html"
+	def get(self, request, *args, **kwargs):
+		updateReferences()
+		return super().get(request, args, kwargs)
 
 class LojaGerListView(LoginRequiredMixin, ListView):
 	model = Loja
@@ -171,7 +174,30 @@ class EntregaListView(LoginRequiredMixin,ListView):
 	model = Entrega
 	template_name = 'cliente/entregas_list.html'
 
+	def get(self, request, *args, **kwargs):
+		updateReferences()
+		return super().get(request, args, kwargs)
+
 	## separaçao de objetos de cada usuario
 	def get_queryset(self,*args,**kwargs):
 		queryset = Entrega.objects.filter(user = self.request.user)
 		return queryset
+
+
+def updateReferences():
+	entregas = Entrega.objects.all()
+	for entrega in entregas:
+		if (not entrega.time):
+			continue
+		time = entrega.get_time_diff()
+		if (time.total_seconds() > 0):
+			continue
+		funcionarios = entrega.funcionarios.all()
+		veiculo = entrega.veiculo
+		veiculo.em_uso = False
+		veiculo.espaco_usado = 0
+		veiculo.save()
+		for funcionario in funcionarios:
+			funcionario.em_uso = False
+			funcionario.save()
+		entrega.delete()

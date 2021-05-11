@@ -3,21 +3,34 @@
 {% block title %} Listagem de Endereços {% endblock %}
 
 {% block content %}
- <div class = "conteiner">
+<div class = "conteiner">
     <h3>Listagem de veiculos</h3>
-        <ul>
+    <table class = "table">
+        <thead>
+            <tr>
+                <th>Placa</th>
+                <th>Capacidade</th>
+                <th>Em uso</th>
+            </tr>
+        </thead>
+
+        <tbody>
             {% for object in object_list %}
-                <li>
-                    {{ object }}
-                     - 
-                    {% if object.em_uso %}
-                        esta em uso
-                    {% else %}
-                        nao esta em uso
-                    {% endif %}
-                </li>
+                <tr>
+                    <td>{{ object.placa }}</td>
+                    <td>{{ object.capacidade }}</td>
+                    <td>
+                        {% if object.em_uso %}
+                            sim
+                        {% else %}
+                            nao
+                        {% endif %}
+                    </td>
+                </tr>
             {% endfor %}
-        </ul>
+        </tbody>
+    </table>
+
     <a class = "btn btn-info" href="{% url 'main:create_veiculo' %}">Criar</a>
     <a class = "btn btn-primary" href ="{%url 'main:gerenciador_home' %}">Voltar</a>
  </div>
